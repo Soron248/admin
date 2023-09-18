@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const LogIn = ({ setIsLoggedIn, isLoggedIn }) => {
+const LogIn = ({ setIsLoggedIn }) => {
   // store data field for login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
+  const [data, setData] = useState(null);
 
   //authenticate user
   const fetchApi = async () => {
@@ -12,9 +12,12 @@ const LogIn = ({ setIsLoggedIn, isLoggedIn }) => {
       `https://dapi.appsosis.com/api/gettoken?email=${email}&password=${password}`
     );
     const data = await req.json();
-    setToken(data.authorisation.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("token", data.authorisation.token);
     if (data.status === "success") {
-      return setIsLoggedIn(!isLoggedIn);
+      localStorage.setItem("logged", "true");
+      const loggedIn = localStorage.getItem("logged");
+      return setIsLoggedIn(loggedIn);
     } else {
       return alert("wrong user credential");
     }
