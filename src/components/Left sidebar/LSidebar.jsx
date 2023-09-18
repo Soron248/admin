@@ -5,7 +5,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { FcSettings } from "react-icons/fc";
 import { ImCross } from "react-icons/im";
 
-const LSidebar = ({ isOpen, toggleSidebar }) => {
+const LSidebar = ({ isOpen, toggleSidebar, name, email }) => {
   return (
     <section
       className={`${
@@ -60,8 +60,8 @@ const LSidebar = ({ isOpen, toggleSidebar }) => {
               className="w-14 h-14 border-4 rounded-full"
             />
             <div className="ml-3 ">
-              <h1 className="font-bold text-lg">Soron</h1>
-              <p className="font-thin text-sm text-gray-500">React Dev</p>
+              <h1 className="font-bold text-lg">{name}</h1>
+              <p className="font-thin text-sm text-gray-500">{email}</p>
             </div>
           </div>
           <FcSettings className="cursor-pointer text-2xl" />

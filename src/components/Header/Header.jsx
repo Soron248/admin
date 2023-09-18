@@ -3,15 +3,15 @@ import { BiSearchAlt } from "react-icons/bi";
 import { BsFillBellFill } from "react-icons/bs";
 import { RiMenuFoldLine } from "react-icons/ri";
 
-const Header = ({ toggleSidebar }) => {
+const Header = ({ toggleSidebar, name, email }) => {
   return (
     <header className="p-3 h-fit flex justify-between md:px-10 md:py-16 ">
       <div className="flex flex-col justify-center items-start">
-        <h1 className="text-2xl font-bold hidden md:block">User Name</h1>
+        <h1 className="text-2xl font-bold hidden md:block">{name}</h1>
         <h1 className="text-2xl font-bold md:hidden  mx-5">
           <RiMenuFoldLine className="cursor-pointer" onClick={toggleSidebar} />
         </h1>
-        <p className="text-gray-400 hidden md:block">You’ve got 24 New Sales</p>
+        <p className="text-gray-400 hidden md:block">{email}</p>
       </div>
       <div className="flex  gap-3 ">
         <div className=" md:w-auto max-h-10 flex gap-1 outline outline-1 outline-gray-400 justify-center items-center px-2 rounded-xl">

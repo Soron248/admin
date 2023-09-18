@@ -1,3 +1,6 @@
+"use client";
 export default function Home() {
-  return <div>soron</div>;
+  const token = localStorage.getItem("token");
+
+  return <div>Dashboard</div>;
 }
