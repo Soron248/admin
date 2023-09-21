@@ -1,36 +1,43 @@
+"use client";
 import React, { useState } from "react";
 
-const LogIn = ({ setIsLoggedIn }) => {
+const LogIn = ({ handleLogin }) => {
   // store data field for login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [data, setData] = useState(null);
 
-  //authenticate user
-  const fetchApi = async () => {
-    const req = await fetch(
-      `https://dapi.appsosis.com/api/gettoken?email=${email}&password=${password}`
-    );
-    const data = await req.json();
-    localStorage.setItem("user", JSON.stringify(data.user));
-    localStorage.setItem("token", data.authorisation.token);
-    if (data.status === "success") {
-      localStorage.setItem("logged", "true");
-      const loggedIn = localStorage.getItem("logged");
-      return setIsLoggedIn(loggedIn);
-    } else {
-      return alert("wrong user credential");
+  //fetch api
+  const fetchUSer = async () => {
+    try {
+      const req = await fetch(
+        `https://dapi.appsosis.com/api/gettoken?email=${email}&password=${password}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Accept: "application/json",
+          },
+        }
+      );
+      if (req.ok) {
+        const data = await req.json();
+        // Save user data to localStorage
+        localStorage.setItem("userData", JSON.stringify(data));
+        handleLogin(data);
+      } else {
+        // Handle authentication error here
+        console.error("Authentication failed");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
     }
   };
 
   // form submit function
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchApi();
-    setEmail("");
-    setPassword("");
+    fetchUSer();
   };
-
   return (
     <section className="w-full h-screen bg-indigo-950 flex justify-center items-center py-32">
       <div className="bg-white w-fit md:px-10 h-full rounded-xl">

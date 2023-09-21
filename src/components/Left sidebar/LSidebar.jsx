@@ -1,11 +1,13 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import srn from "../../../public/srn.jpg";
 import { BsArrowRightShort } from "react-icons/bs";
 import { FcSettings } from "react-icons/fc";
 import { ImCross } from "react-icons/im";
+import Link from "next/link";
 
-const LSidebar = ({ isOpen, toggleSidebar, name, email }) => {
+const LSidebar = ({ isOpen, toggleSidebar, user }) => {
   return (
     <section
       className={`${
@@ -24,31 +26,11 @@ const LSidebar = ({ isOpen, toggleSidebar, name, email }) => {
           <ul className="w-full h-full flex flex-col gap-5 text-gray-600 justify-center items-start pl-10 ">
             <li className="flex items-center gap-2 cursor-pointer">
               <BsArrowRightShort className="text-gray-500 text-xl" />
-              Dashboard
+              <Link href={"/"}>Dashboard</Link>
             </li>
             <li className="flex items-center gap-2 cursor-pointer">
               <BsArrowRightShort className="text-gray-500 text-xl" />
-              Crafted
-            </li>
-            <li className="flex items-center gap-2 cursor-pointer">
-              <BsArrowRightShort className="text-gray-500 text-xl" />
-              Applications
-            </li>
-            <li className="flex items-center gap-2 cursor-pointer">
-              <BsArrowRightShort className="text-gray-500 text-xl" />
-              Layout Builder
-            </li>
-            <li className="flex items-center gap-2 cursor-pointer">
-              <BsArrowRightShort className="text-gray-500 text-xl" />
-              Components
-            </li>
-            <li className="flex items-center gap-2 cursor-pointer">
-              <BsArrowRightShort className="text-gray-500 text-xl" />
-              Documentation
-            </li>
-            <li className="flex items-center gap-2 cursor-pointer">
-              <BsArrowRightShort className="text-gray-500 text-xl" />
-              Changelog v8.0.22
+              <Link href={"/new_student"}>Create Student</Link>
             </li>
           </ul>
         </nav>
@@ -60,8 +42,8 @@ const LSidebar = ({ isOpen, toggleSidebar, name, email }) => {
               className="w-14 h-14 border-4 rounded-full"
             />
             <div className="ml-3 ">
-              <h1 className="font-bold text-lg">{name}</h1>
-              <p className="font-thin text-sm text-gray-500">{email}</p>
+              <h1 className="font-bold text-lg">{user.name}</h1>
+              <p className="font-thin text-sm text-gray-500">{user.email}</p>
             </div>
           </div>
           <FcSettings className="cursor-pointer text-2xl" />
