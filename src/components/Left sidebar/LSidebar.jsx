@@ -12,7 +12,7 @@ const LSidebar = ({ isOpen, toggleSidebar, user }) => {
     <section
       className={`${
         isOpen ? "w-80 p-5" : "w-0"
-      } md:w-auto transition-all duration-300 absolute md:static h-screen z-50 bg-white md overflow-hidden left-0 md:inline-block  md:p-10`}
+      } md:w-auto transition-all duration-300 fixed md:static h-screen z-50 bg-white md overflow-hidden left-0 md:inline-block  md:p-10`}
     >
       <div className="w-full flex flex-col justify-between h-full bg-gray-100 rounded-2xl ">
         <div className="flex justify-center items-center p-10">
@@ -27,6 +27,10 @@ const LSidebar = ({ isOpen, toggleSidebar, user }) => {
             <li className="flex items-center gap-2 cursor-pointer">
               <BsArrowRightShort className="text-gray-500 text-xl" />
               <Link href={"/"}>Dashboard</Link>
+            </li>
+            <li className="flex items-center gap-2 cursor-pointer">
+              <BsArrowRightShort className="text-gray-500 text-xl" />
+              <Link href={"/all_students"}>All Students</Link>
             </li>
             <li className="flex items-center gap-2 cursor-pointer">
               <BsArrowRightShort className="text-gray-500 text-xl" />

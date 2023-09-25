@@ -1,66 +1,134 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Chart from "react-apexcharts";
 
 export default function Home() {
-  const [allStudents, setAllStudents] = useState([]);
-
-  //fetch api
-  const fetchUSer = async (token) => {
-    try {
-      const req = await fetch("https://dapi.appsosis.com/api/student", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // "Content-Type": "application/json",
-          Accept: "application/json",
+  const [area, setArea] = useState({
+    options: {
+      chart: {
+        id: "apexchart-example",
+      },
+      xaxis: {
+        categories: ["Unfrozen", "Frozen", "Completed", "Emails"],
+      },
+    },
+    series: [
+      {
+        name: "Log-Status",
+        data: [0, 40, 35, 50],
+      },
+    ],
+  });
+  const [pie, setPie] = useState({
+    series: [10, 40, 35, 50],
+    options: {
+      chart: {
+        type: "donut",
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            // chart: {
+            //   width: 200,
+            // },
+            legend: {
+              position: "bottom",
+            },
+          },
         },
-      });
-      if (req.ok) {
-        const data = await req.json();
-        // Save data
-        setAllStudents(data.data);
-      } else {
-        // Handle authentication error here
-        console.error("Authentication failed");
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  };
+      ],
+    },
+  });
+  const [rad, setRad] = useState({
+    series: [80, 60, 47, 10],
+    options: {
+      // chart: {
+      //   height: 350,
+      //   type: "radialBar",
+      // },
+      plotOptions: {
+        radialBar: {
+          dataLabels: {
+            name: {
+              fontSize: "22px",
+            },
+            value: {
+              fontSize: "16px",
+            },
+            total: {
+              show: true,
+              label: "Total",
+              formatter: function (w) {
+                // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                return 365;
+              },
+            },
+          },
+        },
+      },
+      labels: ["Emails", "Completed", "Frozen", "Unforzen"],
+    },
+  });
 
-  useEffect(() => {
-    const userData = localStorage.getItem("userData");
-    const data = JSON.parse(userData);
-    fetchUSer(data.authorisation.token);
-  }, []);
+  const [pol, setPol] = useState({
+    series: [14, 23, 21, 17],
+    options: {
+      chart: {
+        type: "polarArea",
+      },
+      stroke: {
+        colors: ["#fff"],
+      },
+      fill: {
+        opacity: 0.8,
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  });
 
   return (
     <section>
       <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {allStudents &&
-              allStudents.map((data) => {
-                return (
-                  <tr key={data.id}>
-                    <th>{data.id}</th>
-                    <td>{data.first_name}</td>
-                    <td>{data.last_name}</td>
-                    <td>{data.email}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <div className="chart flex gap-2">
+          <Chart
+            options={area.options}
+            series={area.series}
+            type="area"
+            width={340}
+            height={250}
+          />
+          <Chart
+            options={pie.options}
+            series={pie.series}
+            type="donut"
+            width={340}
+            height={250}
+          />
+          <Chart
+            options={rad.options}
+            series={rad.series}
+            type="radialBar"
+            width={340}
+            height={250}
+          />
+          <Chart
+            options={pol.options}
+            series={pol.series}
+            type="polarArea"
+            width={340}
+            height={250}
+          />
+        </div>
       </div>
     </section>
   );
